@@ -6,6 +6,7 @@
 import sys
 import numpy as np
 import string
+import random
 
 if __name__ == '__main__':
 
@@ -89,7 +90,46 @@ if __name__ == '__main__':
     lab_wr.close()
     ref_wr.close()
 
+    # divide data to train, validate, test
+    # 6 : 2 : 2
+    f = open("./data/data.txt", 'r')
+    test_num = data_num / 5
+    vali_num = test_num
+    train_num = data_num - 2*test_num
+    
+    train_list = random.sample(range(0,data_num), train_num)
+    test_list = range(0,data_num)
+    for obj in train_list:
+        test_list.remove(obj)
+    vali_list = test_list
+    test_list = random.sample(test_list, test_num)
+    for obj in test_list:
+        vali_list.remove(obj)
+    
+    train_wr = open("./data/train.txt", 'w')
+    vali_wr = open("./data/vali.txt", 'w')
+    test_wr = open("./data/test.txt", 'w')
+        
+    for i in range(data_num):
+        fl = f.readline()
+        if i in train_list:
+            train_wr.write(fl)
+        elif i in vali_list:
+            vali_wr.write(fl)
+        else:
+            test_wr.write(fl)
 
+    train_wr.close()
+    vali_wr.close()
+    test_wr.close()
+    
+    
+    
+    
+    
+    
+    
+    
 
 
 
