@@ -93,6 +93,7 @@ if __name__ == '__main__':
     # divide data to train, validate, test
     # 6 : 2 : 2
     f = open("./data/data.txt", 'r')
+    f2 = open("./data/label.txt", 'r')
     test_num = data_num / 5
     vali_num = test_num
     train_num = data_num - 2*test_num
@@ -109,19 +110,34 @@ if __name__ == '__main__':
     train_wr = open("./data/train.txt", 'w')
     vali_wr = open("./data/vali.txt", 'w')
     test_wr = open("./data/test.txt", 'w')
-        
+    
+    train_lab_wr = open("./data/train_label.txt", 'w')
+    vali_lab_wr = open("./data/vali_label.txt", 'w')
+    test_lab_wr = open("./data/test_label.txt", 'w')
+    
     for i in range(data_num):
         fl = f.readline()
+        fl2 = f2.readline()
         if i in train_list:
             train_wr.write(fl)
+            train_lab_wr.write(fl2)
         elif i in vali_list:
             vali_wr.write(fl)
+            vali_lab_wr.write(fl2)
         else:
             test_wr.write(fl)
-
+            test_lab_wr.write(fl2)
+    
+    f.close()
+    f2.close()
+    
     train_wr.close()
     vali_wr.close()
     test_wr.close()
+    
+    train_lab_wr.close()
+    vali_lab_wr.close()
+    test_lab_wr.close()
     
     
     
