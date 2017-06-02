@@ -1,6 +1,4 @@
 ## file name: load.py
-## function: read data from txt
-##           return numpy matrix/vector
 
 import sys
 import numpy as np
@@ -17,4 +15,22 @@ def load(file_path):
     
     return data
     
+def normalize(x):
+    mean = x.mean()
+    std = x.std()
+    for xx in x:
+        xx = (xx - mean) / std
     
+    return x
+
+def writ(file_path, x):
+    f = open(file_path, 'w')
+    for i in range(x.shape[0]):
+        for j in range(x.shape[1]):
+            f.write(str(x[i][j]))
+            if j != x.shape[1]-1:
+                f.write('\t')
+        if i != x.shape[0]-1:
+            f.write("\n")
+    f.close()
+
